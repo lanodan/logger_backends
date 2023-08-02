@@ -8,14 +8,18 @@ on:
 
 jobs:
   test:
-    name: Test (Elixir ${{matrix.elixir}} | Erlang/OTP ${{matrix.otp}})
+    name: Test (Elixir ${{matrix.pair.elixir}} | Erlang/OTP ${{matrix.pair.otp}})
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
         include:
-          - otp: '25'
-            elixir: main
+          - pair:
+              elixir: main
+              otp: '25'
+          - pair:
+              elixir: '1.12'
+              otp: '25'
             lint: true
     env:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -28,8 +32,8 @@ jobs:
       - name: Install OTP and Elixir
         uses: erlef/setup-beam@v1
         with:
-          otp-version: ${{ matrix.otp }}
-          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.pair.otp }}
+          elixir-version: ${{ matrix.pair.elixir }}
           version-type: 'strict'
 
       - name: Install dependencies
