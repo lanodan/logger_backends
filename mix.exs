@@ -8,7 +8,7 @@ defmodule LoggerBackends.MixProject do
     [
       app: :logger_backends,
       version: @version,
-      elixir: "~> 1.15-dev",
+      elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       docs: docs(),
